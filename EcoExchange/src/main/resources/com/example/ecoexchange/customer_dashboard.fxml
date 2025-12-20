@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="600.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.ecoexchange.controller.CustomerController">
+    <top>
+        <HBox alignment="CENTER_LEFT" prefHeight="70.0" style="-fx-background-color: #2ecc71;" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets left="30.0" right="30.0" />
+            </padding>
+            <children>
+                <Label text="EcoExchange Customer" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="30.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label fx:id="lblWelcome" text="Hello, Customer">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+
+                <HBox alignment="CENTER" spacing="30.0">
+                    <VBox alignment="CENTER" prefHeight="150.0" prefWidth="200.0"
+                            style="-fx-background-color: #f1f2f6; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);">
+                        <children>
+                            <Label text="Current Balance" textFill="#7f8c8d" />
+                            <Label fx:id="lblBalance" text="Rp 0" textFill="#27ae60">
+                                <font>
+                                    <Font name="System Bold" size="28.0" />
+                                </font>
+                            </Label>
+                        </children>
+                    </VBox>
+
+                    <VBox alignment="CENTER" layoutX="260.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0"
+                            style="-fx-background-color: #f1f2f6; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0;)">
+                        <children>
+                            <Label text="Total Waste" textFill="#7fbc8d" />
+                            <Label fx:id="lblWeight" text="0 kg">
+                                <font>
+                                    <Font name="System Bold" size="28.0" />
+                                </font>
+                            </Label>
+                        </children>
+                    </VBox>
+
+                    <VBox alignment="CENTER" layoutX="460.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0"
+                            style="-fx-background-color: #f1f2f6; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0;)">
+                        <children>
+                            <Label text="Membership Level" textFill="#7f8c8f" />
+                            <Label fx:id="lblLevel" text="BRONZE" textFill="#e67e22">
+                                <font>
+                                    <Font name="System Bold" size="28.0" />
+                                </font>
+                            </Label>
+                        </children>
+                    </VBox>
+                </HBox>
+
+                <HBox alignment="CENTER" spacing="20.0">
+                    <Button onAction="#handleDeposit" text="Deposit Waste"
+                            style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14; -fx-cursor: hand; -fx-padding: 10 20;"/>
+
+                    <Button onAction="#handleWithdraw" text="Withdraw Funds"
+                            style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14; -fx-cursor: hand; -fx-padding: 10 20;"/>
+                </HBox>
+
+                <Button mnemonicParsing="false" onAction="#handleLogout"
+                        style="-fx-background-color: #e74c3c;-fx-background-radius: #e74c3c; -fx-font-weight: bold;-fx-text-fill: white; -fx-padding: 10 40; -fx-cursor: hand;"
+                        text="Logout" />
+            </children>
+        </VBox>
+    </center>
+</BorderPane>
