@@ -58,6 +58,10 @@ public class Customer extends User implements Levelable {
         return membershipLevel;
     }
 
+    public void setMembershipLevel(MembershipLevel membershipLevel) {
+        this.membershipLevel = membershipLevel;
+    }
+
     public void deductBalance(double amount) {
         if (amount > this.balance) {
             throw new IllegalArgumentException("Insufficient balance!");
