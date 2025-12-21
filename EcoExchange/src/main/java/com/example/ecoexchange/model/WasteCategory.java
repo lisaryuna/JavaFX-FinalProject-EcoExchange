@@ -28,6 +28,6 @@ public class WasteCategory {
 
     @Override
     public String toString() {
-        return name + ("Rp " + basePrice + "/kg");
+        return name + (" - Rp " + basePrice + "/kg");
     }
 }
