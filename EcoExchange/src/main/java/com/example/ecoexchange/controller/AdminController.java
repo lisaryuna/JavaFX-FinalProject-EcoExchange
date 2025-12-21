@@ -29,9 +29,6 @@ public class AdminController {
     public void setAdminData(Admin admin) {
         lblWelcome.setText("Welcome, " + admin.getFullName());
 
-        txtName.setEditable(false);
-        txtName.setDisable(true);
-
         loadWasteData();
         setupTableSelection();
     }
@@ -97,5 +94,62 @@ public class AdminController {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    @FXML
+    public void handleAddWaste(ActionEvent event) {
+        String name = txtName.getText();
+        String priceText = txtPrice.getText();
+
+        if (name.isEmpty() || priceText.isEmpty()) {
+            showAlert("Error", "Please fill all the fields in your fields.");
+            return;
+        }
+
+        try {
+            double price = Double.parseDouble(priceText);
+
+
+            WasteCategory newCategory = new WasteCategory(name, price);
+
+            boolean success = wasteDAO.addCategory(newCategory);
+            if (success) {
+                showAlert("Success", "New category added!");
+                loadWasteData();
+                txtName.clear();
+                txtPrice.clear();
+            } else {
+                showAlert("Error", "Failed to add category!");
+            }
+        } catch (NumberFormatException e) {
+            showAlert("Error", "Price must be a valid number!");
+        }
+    }
+
+    @FXML
+    public void handleDeleteWaste(ActionEvent event) {
+        if (selectedWaste == null) {
+            showAlert("Warning", "Please select a waste category from the table first.");
+            return;
+        }
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Delete Confirmation");
+        confirm.setHeaderText(null);
+        confirm.setContentText("Are you sure you want to delete: " + selectedWaste.getName() + "?");
+
+        if (confirm.showAndWait().get() == ButtonType.OK) {
+            boolean success = wasteDAO.deleteCategory(selectedWaste.getId());
+
+            if (success) {
+                showAlert("Success", "Category deleted!");
+                loadWasteData();
+                txtName.clear();
+                txtPrice.clear();
+                selectedWaste = null;
+            } else {
+                showAlert("Error", "Failed to delete category.");
+            }
+        }
     }
 }
