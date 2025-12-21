@@ -39,6 +39,7 @@ public class LoginController {
 
         if (loggedInUser == null) {
             lblStatus.setText("Invalid username or password");
+            txtPassword.clear();
             return;
         }
 
