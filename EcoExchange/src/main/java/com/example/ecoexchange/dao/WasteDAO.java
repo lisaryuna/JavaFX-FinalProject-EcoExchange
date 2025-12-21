@@ -43,4 +43,34 @@ public class WasteDAO {
             return false;
         }
     }
+
+    public boolean addCategory(WasteCategory wasteCategory) {
+        String query = "INSERT INTO waste_categories (category_name, base_price) VALUES (?, ?)";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, wasteCategory.getName());
+            statement.setDouble(2, wasteCategory.getBasePrice());
+
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean deleteCategory(int categoryID) {
+        String query = "DELETE FROM waste_categories WHERE category_id = ?";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, categoryID);
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
