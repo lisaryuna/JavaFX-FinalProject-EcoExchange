@@ -11,6 +11,11 @@ public class WasteCategory {
         this.basePrice = basePrice;
     }
 
+    public WasteCategory(String name, double basePrice) {
+        this.name = name;
+        this.basePrice = basePrice;
+    }
+
     public int getId() {
         return id;
     }
