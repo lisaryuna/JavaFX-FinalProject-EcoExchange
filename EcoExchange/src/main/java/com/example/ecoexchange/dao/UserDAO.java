@@ -29,7 +29,7 @@ public class UserDAO {
                 } else {
                     double balance = resultSet.getDouble("balance");
                     double weight = resultSet.getDouble("total_weight_history");
-                    String level = resultSet.getString("membership_level");
+                    String level = resultSet.getString("membership_level").toUpperCase();
 
                     user = new Customer(id, fullName, username, passDB, balance, weight, level);
                 }
