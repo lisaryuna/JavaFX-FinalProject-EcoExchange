@@ -41,14 +41,14 @@ public class UserDAO {
     }
 
     public boolean updateCustomerStats(Customer customer) {
-        String query = "UPDATE users SET balance = ?, total_weight_history = ? WHERE user_id = ?";
+        String query = "UPDATE users SET balance = ?, total_weight_history = ?, membership_level = ? WHERE user_id = ?";
 
         try (Connection connection = DatabaseConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setDouble(1, customer.getBalance());
             statement.setDouble(2, customer.getTotalWeightHistory());
-            statement.setString(3, customer.getMembershipLevel().toString());
+            statement.setString(3, customer.getMembershipLevel().name());
             statement.setInt(4, customer.getUserID());
 
             return statement.executeUpdate() > 0;
