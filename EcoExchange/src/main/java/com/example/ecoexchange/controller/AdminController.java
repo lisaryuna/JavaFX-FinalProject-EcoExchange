@@ -60,6 +60,12 @@ public class AdminController {
 
         try {
             double newPrice =  Double.parseDouble(txtPrice.getText());
+
+            if (newPrice <= 0) {
+                showAlert("Invalid Price", "Price must be greater than 0.");
+                return;
+            }
+
             boolean success = wasteDAO.updatePrice(selectedWaste.getId(), newPrice);
 
             if (success) {
