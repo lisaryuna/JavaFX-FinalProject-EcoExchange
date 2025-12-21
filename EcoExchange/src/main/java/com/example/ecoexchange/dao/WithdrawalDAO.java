@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class WithdrawalDAO {
     public boolean createWithdrawal(int userID, double amount) {
-        String query = "INSERT INTO withdrawal (userID, amount) VALUES (?, ?)";
+        String query = "INSERT INTO withdrawal (user_id, amount) VALUES (?, ?)";
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
