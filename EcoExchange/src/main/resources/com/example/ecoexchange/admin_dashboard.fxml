@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.geometry.Insets?>
-<BorderPane prefHeight="600.0" prefWidth="800.0"
+<BorderPane prefHeight="700.0" prefWidth="800.0"
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.ecoexchange.controller.AdminController">
     <center>
@@ -47,17 +47,31 @@
 
                 <HBox spacing="15.0" alignment="CENTER_LEFT">
                     <VBox>
-                        <Label text="Selected Waste:"/>
-                        <TextField fx:id="txtName" promptText="Select from table" editable="false" style="-fx-background-color: #ecf0f1;"/>
+                        <Label text="Category Name:"/>
+                        <TextField fx:id="txtName" promptText="Input Name / Select"/>
                     </VBox>
 
                     <VBox>
-                        <Label text="New Price (Rp):"/>
-                        <TextField fx:id="txtPrice" promptText="Enter new price"/>
+                        <Label text="Price (Rp):"/>
+                        <TextField fx:id="txtPrice" promptText="Enter price"/>
                     </VBox>
 
                     <Button onAction="#handleUpdate" text="Update Price"
                             style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;">
+                        <HBox.margin>
+                            <Insets top="17.0"/>
+                        </HBox.margin>
+                    </Button>
+
+                    <Button onAction="#handleAddWaste" text="+ Add New"
+                            style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;">
+                        <HBox.margin>
+                            <Insets top="17.0" />
+                        </HBox.margin>
+                    </Button>
+
+                    <Button onAction="#handleDeleteWaste" text="Delete"
+                            style="-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand">
                         <HBox.margin>
                             <Insets top="17.0"/>
                         </HBox.margin>
