@@ -18,7 +18,7 @@ public class AdminController {
     @FXML private Label lblWelcome;
     @FXML private TableView<WasteCategory> tblWaste;
     @FXML private TableColumn<WasteCategory,String> colName;
-    @FXML private TableColumn<WasteCategory,String> colPrice;
+    @FXML private TableColumn<WasteCategory,Double> colPrice;
 
     @FXML private TextField txtName;
     @FXML private TextField txtPrice;
@@ -28,6 +28,10 @@ public class AdminController {
 
     public void setAdminData(Admin admin) {
         lblWelcome.setText("Welcome, " + admin.getFullName());
+
+        txtName.setEditable(false);
+        txtName.setDisable(true);
+
         loadWasteData();
         setupTableSelection();
     }
