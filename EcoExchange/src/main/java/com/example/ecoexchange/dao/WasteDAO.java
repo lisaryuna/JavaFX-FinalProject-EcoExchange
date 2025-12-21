@@ -29,7 +29,7 @@ public class WasteDAO {
     }
 
     public boolean updatePrice (int categoryID, double newPrice) {
-        String query = "UPDATE waste_categories SET base_price = base_price = ? WHERE category_id = ?";
+        String query = "UPDATE waste_categories SET base_price = ? WHERE category_id = ?";
 
         try (Connection connection = DatabaseConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement(query)) {
