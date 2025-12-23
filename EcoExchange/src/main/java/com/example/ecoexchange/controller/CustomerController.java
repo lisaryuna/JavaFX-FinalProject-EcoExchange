@@ -6,10 +6,13 @@ import com.example.ecoexchange.model.WasteCategory;
 import com.example.ecoexchange.service.TransactionService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.util.Optional;
 
 public class CustomerController {
@@ -46,48 +49,48 @@ public class CustomerController {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Deposit Waste");
         dialog.setHeaderText("Select waste type & enter weight (kg)");
-
-        ComboBox<WasteCategory> comboWaste =  new ComboBox<>();
-        comboWaste.getItems().addAll(wasteDAO.getAllCategories());
-
-        TextField txtWeight =  new TextField();
-        txtWeight.setPromptText("Example: 5.5");
-
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.add(new  Label("Waste Type:"), 0, 0);
-        grid.add(comboWaste, 1, 0);
-        grid.add(new  Label("Weight:"), 0, 1);
-        grid.add(txtWeight, 1, 1);
-
-        dialog.getDialogPane().setContent(grid);
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
-        Optional<ButtonType> result = dialog.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            try {
-                WasteCategory selectedCategory = comboWaste.getValue();
-                String weightStr = txtWeight.getText();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ecoexchange/deposit_form.fxml"));
+            GridPane grid = loader.load();
 
-                if (selectedCategory == null || weightStr.isEmpty()) {
-                    showInfo("Failed", "Please select a waste category and enter weight!");
-                    return;
+            ComboBox<WasteCategory> comboWaste = (ComboBox<WasteCategory>) loader.getNamespace().get("comboWaste");
+            TextField txtWeight = (TextField) loader.getNamespace().get("txtWeight");
+
+            comboWaste.getItems().addAll(wasteDAO.getAllCategories());
+
+            dialog.getDialogPane().setContent(grid);
+
+            Optional<ButtonType> result = dialog.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                try {
+                    WasteCategory selectedCategory = comboWaste.getValue();
+                    String weightStr = txtWeight.getText();
+
+                    if (selectedCategory == null || weightStr.isEmpty()) {
+                        showInfo("Failed", "Please select a waste category and enter weight!");
+                        return;
+                    }
+
+                    double weight = Double.parseDouble(weightStr);
+
+                    transactionService.processDeposit(currentCustomer, selectedCategory, weight);
+
+                    updateUI();
+
+                    showInfo("Success!", "Balance updated & Level refreshed.");
+                } catch (NumberFormatException e) {
+                    showInfo("Error", "Weight must be a valid number! (Use dot for decimals)");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    showInfo("System Error", "An error occured: " + e.getMessage());
                 }
-
-                double weight = Double.parseDouble(weightStr);
-
-                transactionService.processDeposit(currentCustomer, selectedCategory, weight);
-
-                updateUI();
-
-                showInfo("Success!", "Balance updated & Level refreshed.");
-            } catch (NumberFormatException e) {
-                showInfo("Error", "Weight must be a valid number! (Use dot for decimals)");
-            } catch (Exception e) {
-                e.printStackTrace();
-                showInfo("System Error", "An error occured: " + e.getMessage());
             }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showInfo("System Error", "Failed to load dialog UI: " + e.getMessage());
         }
     }
 
